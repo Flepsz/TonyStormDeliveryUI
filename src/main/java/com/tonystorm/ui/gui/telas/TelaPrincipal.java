@@ -1,4 +1,6 @@
-package com.tonystorm.ui.gui.telas.login;
+package com.tonystorm.ui.gui.telas;
+
+import com.tonystorm.ui.gui.telas.login.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,12 +22,16 @@ public class TelaPrincipal extends JFrame {
         SignRestaurante telaRestaurante = new SignRestaurante(this);
         LoginUsuario loginUsuarioT = new LoginUsuario();
         LoginRestaurante loginRestauranteT = new LoginRestaurante();
+        RegistrarUsuario registrarUsuario = new RegistrarUsuario(this);
+        RegistrarRestaurante registrarRestaurante = new RegistrarRestaurante(this);
 
         cardPanel.add(telaInicial, "TelaInicial");
         cardPanel.add(telaUsuario, "TelaUsuario");
         cardPanel.add(telaRestaurante, "TelaRestaurante");
         cardPanel.add(loginUsuarioT, "LoginUsuarioT");
         cardPanel.add(loginRestauranteT, "LoginRestauranteT");
+        cardPanel.add(registrarUsuario, "RegistrarUsuarioT");
+        cardPanel.add(registrarRestaurante, "RegistrarRestauranteT");
 
         add(cardPanel);
         setLocationRelativeTo(null);

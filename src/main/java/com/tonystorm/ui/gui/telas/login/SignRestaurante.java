@@ -1,5 +1,7 @@
 package com.tonystorm.ui.gui.telas.login;
 
+import com.tonystorm.ui.gui.telas.TelaPrincipal;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
