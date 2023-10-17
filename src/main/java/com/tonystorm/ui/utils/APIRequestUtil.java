@@ -1,6 +1,9 @@
 package com.tonystorm.ui.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.tonystorm.ui.utils.UrlAPI;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,7 +16,7 @@ public class APIRequestUtil {
     private final String url;
 
     public APIRequestUtil(String endpoint) {
-        this.url = "http://localhost:7777" + endpoint;
+        this.url = UrlAPI.get() + endpoint;
     }
 
     public String sendGetRequest() throws Exception {
@@ -39,16 +42,21 @@ public class APIRequestUtil {
         }
     }
 
-    public String sendPostRequest(String requestBody) throws Exception {
+    public String sendPostRequest(Object requestBody) throws Exception {
         URL apiUrl = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json");
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestBodyJson = objectWriter.writeValueAsString(requestBody);
+
 
         try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = requestBody.getBytes("UTF-8");
+            byte[] input = requestBodyJson.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
 
@@ -70,7 +78,7 @@ public class APIRequestUtil {
         }
     }
 
-    public String sendPutRequest(String requestBody) throws Exception {
+    public String sendPutRequest(Object requestBody) throws Exception {
         URL apiUrl = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
         connection.setRequestMethod("PUT");
@@ -78,7 +86,10 @@ public class APIRequestUtil {
         connection.setRequestProperty("Content-Type", "application/json");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+        objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestBodyJson = objectWriter.writeValueAsString(requestBody);
+
 
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = requestBodyJson.getBytes(StandardCharsets.UTF_8);
