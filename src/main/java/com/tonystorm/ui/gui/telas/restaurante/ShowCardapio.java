@@ -13,7 +13,7 @@ public class ShowCardapio extends JPanel {
     public ShowCardapio(TelaPrincipal telaRestauranteP) throws Exception {
         setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridLayout(2, 1));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 40, 10);
 
@@ -21,7 +21,7 @@ public class ShowCardapio extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 4;
         panel.add(titleLabel, gbc);
 
         List<Comida> comidas = getComidas(telaRestauranteP);
@@ -38,12 +38,18 @@ public class ShowCardapio extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(table);
 
-        gbc.gridy = 1;
-        gbc.gridwidth = 0;
-        add(scrollPane, gbc);
+        panel.add(scrollPane);
+
+        JPanel backButtonPanel = telaRestauranteP.getBackButton("HomeRestauranteT");
+        add(backButtonPanel, BorderLayout.NORTH);
+
+        add(panel, BorderLayout.CENTER);
+
     }
 
     public List<Comida> getComidas(TelaPrincipal telaRestauranteP) throws Exception {
         return new APIGetComida(telaRestauranteP.getRestauranteLogado().getId().toString()).getAll();
     }
+
+
 }

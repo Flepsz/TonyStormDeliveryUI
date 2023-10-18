@@ -29,7 +29,7 @@ public class LoginUsuario extends JPanel {
         gbc.gridwidth = 2;
         panel.add(titleLabel, gbc);
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\tonylogin.png");
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\ct67ca\\Documents\\TonyStormDeliveryUI\\src\\main\\resources\\tonylogin.png");
         JLabel imageLabel = new JLabel(imageIcon);
         gbc.gridx = 0;
         gbc.gridy = 1;

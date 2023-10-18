@@ -70,14 +70,14 @@ public class HomeRestaurante extends JPanel {
         seeComidasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShowCardapio showCardapio = null;
                 try {
-                    showCardapio = new ShowCardapio(telaPrincipal);
+                    ShowCardapio showCardapio = new ShowCardapio(telaPrincipal);
+                    telaPrincipal.getCardPanel().add(showCardapio, "ShowCardapioT");
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
 
-                telaPrincipal.getCardPanel().add(showCardapio, "ShowCardapioT");
+
                 telaPrincipal.mostrarTela("ShowCardapioT");
             }
         });
@@ -85,7 +85,13 @@ public class HomeRestaurante extends JPanel {
         pedidoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                telaPrincipal.mostrarTela("");
+                try {
+                    ShowUsuariosPedido showUsuariosPedido = new ShowUsuariosPedido(telaPrincipal);
+                    telaPrincipal.getCardPanel().add(showUsuariosPedido, "ShowUsuariosPedidoT");
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                telaPrincipal.mostrarTela("ShowUsuariosPedidoT");
             }
         });
 

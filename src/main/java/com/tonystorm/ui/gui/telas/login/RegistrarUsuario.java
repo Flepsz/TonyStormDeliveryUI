@@ -31,7 +31,7 @@ public class RegistrarUsuario extends JPanel{
         gbc.gridwidth = 2;
         panel.add(titleLabel, gbc);
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\tony2.png");
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\ct67ca\\Documents\\TonyStormDeliveryUI\\src\\main\\resources\\tony2.png");
         JLabel imageLabel = new JLabel(imageIcon);
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -54,8 +54,8 @@ public class RegistrarUsuario extends JPanel{
         registerButton.setBackground(Color.WHITE);
         registerButton.setForeground(Color.BLACK);
         registerButton.setMargin(new Insets(10, 20, 10, 20));
-        gbc.gridwidth = 1;
 
+        gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 2;
         panel.add(new JLabel("Nome: "), gbc);

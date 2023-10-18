@@ -65,7 +65,7 @@ public class TelaPrincipal extends JFrame {
         JButton backButton = new JButton();
         backButton.setBackground(Color.WHITE);
         backButton.setForeground(Color.BLACK);
-        ImageIcon arrowIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\arrow.png");
+        ImageIcon arrowIcon = new ImageIcon("C:\\Users\\ct67ca\\Documents\\TonyStormDeliveryUI\\src\\main\\resources\\arrow.png");
         backButton.setIcon(arrowIcon);
         backButton.setPreferredSize(new Dimension(40, 40));
         backButton.addActionListener(new ActionListener() {
@@ -83,7 +83,7 @@ public class TelaPrincipal extends JFrame {
         JButton backButton = new JButton();
         backButton.setBackground(Color.WHITE);
         backButton.setForeground(Color.BLACK);
-        ImageIcon arrowIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\logout.png");
+        ImageIcon arrowIcon = new ImageIcon("C:\\Users\\ct67ca\\Documents\\TonyStormDeliveryUI\\src\\main\\resources\\logout.png");
         backButton.setIcon(arrowIcon);
         backButton.setPreferredSize(new Dimension(40, 40));
         backButton.addActionListener(new ActionListener() {
