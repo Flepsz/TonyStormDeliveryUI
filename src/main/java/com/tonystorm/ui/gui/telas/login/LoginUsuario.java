@@ -1,5 +1,6 @@
 package com.tonystorm.ui.gui.telas.login;
 
+import com.tonystorm.ui.gui.telas.TelaPrincipal;
 import com.tonystorm.ui.models.Usuario;
 import com.tonystorm.ui.services.auth.AuthServiceUsuario;
 import com.tonystorm.ui.services.get.APIGetUsuario;
@@ -14,7 +15,7 @@ public class LoginUsuario extends JPanel {
     private final JTextField nomeField;
     private final JPasswordField senhaField;
 
-    public LoginUsuario() {
+    public LoginUsuario(TelaPrincipal telaPrincipal) {
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -41,7 +42,10 @@ public class LoginUsuario extends JPanel {
         senhaField.setPreferredSize(new Dimension(200, 30));
 
         JButton loginButton = new JButton("Login");
-        loginButton.setPreferredSize(new Dimension(100, 40));
+        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
+        loginButton.setBackground(Color.WHITE);
+        loginButton.setForeground(Color.BLACK);
+        loginButton.setMargin(new Insets(10, 20, 10, 20));
         gbc.gridwidth = 1;
 
         gbc.gridx = 0;
@@ -90,16 +94,9 @@ public class LoginUsuario extends JPanel {
         });
 
         add(panel, BorderLayout.CENTER);
+
+        JPanel backButtonPanel = telaPrincipal.getBackButton("SignUsuarioT");
+        add(backButtonPanel, BorderLayout.NORTH);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Login de Usuário");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(430, 932);
-            frame.add(new LoginUsuario());
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
 }

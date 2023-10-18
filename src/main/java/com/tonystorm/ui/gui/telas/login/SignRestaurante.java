@@ -15,7 +15,16 @@ public class SignRestaurante extends JPanel {
         buttonPanel.setLayout(new GridBagLayout());
 
         JButton registrarButton = new JButton("Registrar");
+        registrarButton.setFont(new Font("Arial", Font.BOLD, 16));
+        registrarButton.setBackground(Color.WHITE);
+        registrarButton.setForeground(Color.BLACK);
+        registrarButton.setMargin(new Insets(10, 20, 10, 20));
+
         JButton loginButton = new JButton("Logar");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
+        loginButton.setBackground(Color.WHITE);
+        loginButton.setForeground(Color.BLACK);
+        loginButton.setMargin(new Insets(10, 20, 10, 20));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -31,7 +40,7 @@ public class SignRestaurante extends JPanel {
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lógica para abrir a tela de registro de restaurante
+                telaPrincipal.mostrarTela("RegistrarRestauranteT");
             }
         });
 
@@ -42,13 +51,7 @@ public class SignRestaurante extends JPanel {
             }
         });
 
-        JButton backButton = new JButton("Voltar");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                telaPrincipal.mostrarTela("TelaInicial");
-            }
-        });
-        add(backButton, BorderLayout.NORTH);
+        JPanel backButtonPanel = telaPrincipal.getBackButton("TelaInicial");
+        add(backButtonPanel, BorderLayout.NORTH);
     }
 }

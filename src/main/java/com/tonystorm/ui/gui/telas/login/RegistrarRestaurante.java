@@ -31,7 +31,7 @@ public class RegistrarRestaurante extends JPanel {
         gbc.gridwidth = 2;
         panel.add(titleLabel, gbc);
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\tonylogin.png");
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\tony2.png");
         JLabel imageLabel = new JLabel(imageIcon);
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -42,15 +42,18 @@ public class RegistrarRestaurante extends JPanel {
         nomeField.setPreferredSize(new Dimension(200, 30));
         senhaField = new JPasswordField(20);
         senhaField.setPreferredSize(new Dimension(200, 30));
-        cnpjField = new JPasswordField(20);
+        cnpjField = new JTextField(20);
         cnpjField.setPreferredSize(new Dimension(200, 30));
-        locX = new JPasswordField(20);
+        locX = new JTextField(20);
         locX.setPreferredSize(new Dimension(200, 30));
-        locY = new JPasswordField(20);
+        locY = new JTextField(20);
         locY.setPreferredSize(new Dimension(200, 30));
 
         JButton registerButton = new JButton("Registrar");
-        registerButton.setPreferredSize(new Dimension(100, 40));
+        registerButton.setFont(new Font("Arial", Font.BOLD, 16));
+        registerButton.setBackground(Color.WHITE);
+        registerButton.setForeground(Color.BLACK);
+        registerButton.setMargin(new Insets(10, 20, 10, 20));
         gbc.gridwidth = 1;
 
         gbc.gridx = 0;
@@ -94,7 +97,7 @@ public class RegistrarRestaurante extends JPanel {
         panel.add(locY, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 7;
         gbc.gridwidth = 4;
         panel.add(registerButton, gbc);
 
@@ -114,8 +117,8 @@ public class RegistrarRestaurante extends JPanel {
                 usuario.setLocalizacao(localizacao);
 
                 try {
-                    new APIRequestUtil("/usuarios").sendPostRequest(usuario);
-                    JOptionPane.showMessageDialog(RegistrarRestaurante.this, "Usuário criado com sucesso!");
+                    new APIRequestUtil("/restaurantes").sendPostRequest(usuario);
+                    JOptionPane.showMessageDialog(RegistrarRestaurante.this, "Restaurante criado com sucesso!");
                     telaPrincipal.mostrarTela("LoginRestauranteT");
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -123,5 +126,8 @@ public class RegistrarRestaurante extends JPanel {
             }
         });
         add(panel, BorderLayout.CENTER);
+
+        JPanel backButtonPanel = telaPrincipal.getBackButton("SignRestauranteT");
+        add(backButtonPanel, BorderLayout.NORTH);
     }
 }

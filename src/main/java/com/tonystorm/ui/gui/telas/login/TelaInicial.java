@@ -11,54 +11,68 @@ public class TelaInicial extends JPanel {
     public TelaInicial(TelaPrincipal telaPrincipal) {
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("TonyStormDelivery");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(titleLabel, BorderLayout.NORTH);
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 40, 10);
+
+        JLabel titleLabel = new JLabel("TonyStorm Delivery");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(titleLabel, gbc);
 
         JLabel quemVoceELabel = new JLabel("Quem você é?");
         quemVoceELabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        quemVoceELabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(quemVoceELabel, BorderLayout.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        panel.add(quemVoceELabel, gbc);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridBagLayout());
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcBtn = new GridBagConstraints();
+        gbcBtn.insets = new Insets(10, 10, 10, 10);
 
         JButton usuarioButton = new JButton("Usuário");
+        usuarioButton.setFont(new Font("Arial", Font.BOLD, 16));
+        usuarioButton.setBackground(Color.WHITE);
+        usuarioButton.setForeground(Color.BLACK);
+        usuarioButton.setMargin(new Insets(10, 20, 10, 20));
+
         JButton restauranteButton = new JButton("Restaurante");
+        restauranteButton.setFont(new Font("Arial", Font.BOLD, 16));
+        restauranteButton.setBackground(Color.WHITE);
+        restauranteButton.setForeground(Color.BLACK);
+        restauranteButton.setMargin(new Insets(10, 20, 10, 20));
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
 
-        buttonPanel.add(usuarioButton, gbc);
-        gbc.gridy = 1;
-        buttonPanel.add(restauranteButton, gbc);
+        gbcBtn.gridx = 0;
+        gbcBtn.gridy = 0;
+        gbcBtn.gridwidth = 1;
+        buttonPanel.add(usuarioButton, gbcBtn);
 
-        add(buttonPanel, BorderLayout.CENTER);
+        gbcBtn.gridx = 1;
+        buttonPanel.add(restauranteButton, gbcBtn);
 
         usuarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                telaPrincipal.mostrarTela("TelaUsuario");
+                telaPrincipal.mostrarTela("SignUsuarioT");
             }
         });
 
         restauranteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                telaPrincipal.mostrarTela("TelaRestaurante");
+                telaPrincipal.mostrarTela("SignRestauranteT");
             }
         });
 
-//        JButton backButton = new JButton("Voltar");
-//        backButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                telaPrincipal.mostrarTela("TelaInicial");
-//            }
-//        });
-//        add(backButton, BorderLayout.NORTH);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        panel.add(buttonPanel, gbc);
+
+        add(panel, BorderLayout.CENTER);
     }
 }

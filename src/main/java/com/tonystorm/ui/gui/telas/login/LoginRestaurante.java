@@ -1,5 +1,7 @@
 package com.tonystorm.ui.gui.telas.login;
 
+import com.tonystorm.ui.gui.telas.TelaPrincipal;
+import com.tonystorm.ui.gui.telas.restaurante.HomeRestaurante;
 import com.tonystorm.ui.models.Restaurante;
 import com.tonystorm.ui.services.auth.AuthServiceRestaurante;
 import com.tonystorm.ui.services.get.APIGetRestaurante;
@@ -14,7 +16,7 @@ public class LoginRestaurante extends JPanel {
     private final JTextField nomeField;
     private final JPasswordField senhaField;
 
-    public LoginRestaurante() {
+    public LoginRestaurante(TelaPrincipal telaPrincipal) {
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -79,7 +81,13 @@ public class LoginRestaurante extends JPanel {
                     Restaurante authenticatedRestaurante = authService.authenticate(nome, senha);
 
                     if (authenticatedRestaurante != null) {
+                        telaPrincipal.setRestauranteLogado(authenticatedRestaurante);
+
+                        HomeRestaurante homeRestaurante = new HomeRestaurante(telaPrincipal);
+                        telaPrincipal.cardPanel.add(homeRestaurante, "HomeRestauranteT");
+
                         JOptionPane.showMessageDialog(LoginRestaurante.this, "Logado com sucesso!");
+                        telaPrincipal.mostrarTela("HomeRestauranteT");
                     } else {
                         JOptionPane.showMessageDialog(LoginRestaurante.this, "Login falhou. Por favor revise suas credenciais.");
                     }
@@ -90,5 +98,8 @@ public class LoginRestaurante extends JPanel {
         });
 
         add(panel, BorderLayout.CENTER);
+
+        JPanel backButtonPanel = telaPrincipal.getBackButton("SignRestauranteT");
+        add(backButtonPanel, BorderLayout.NORTH);
     }
 }

@@ -1,15 +1,30 @@
 package com.tonystorm.ui.gui.telas;
 
 import com.tonystorm.ui.gui.telas.login.*;
+import com.tonystorm.ui.gui.telas.restaurante.HomeRestaurante;
+import com.tonystorm.ui.models.Restaurante;
+import com.tonystorm.ui.models.Usuario;
+import com.tonystorm.ui.services.session.SessionService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class TelaPrincipal extends JFrame {
     private CardLayout cardLayout;
-    private JPanel cardPanel;
+    public JPanel cardPanel;
 
-    public TelaPrincipal() {
+    private Usuario usuarioLogado;
+    private Restaurante restauranteLogado;
+
+    public TelaPrincipal() throws Exception {
         setTitle("TonyStormDelivery");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(430, 932);
@@ -18,20 +33,24 @@ public class TelaPrincipal extends JFrame {
         cardPanel = new JPanel(cardLayout);
 
         TelaInicial telaInicial = new TelaInicial(this);
-        SignUsuario telaUsuario = new SignUsuario(this);
-        SignRestaurante telaRestaurante = new SignRestaurante(this);
-        LoginUsuario loginUsuarioT = new LoginUsuario();
-        LoginRestaurante loginRestauranteT = new LoginRestaurante();
+        SignUsuario signUsuarioT = new SignUsuario(this);
+        SignRestaurante signRestauranteT = new SignRestaurante(this);
+
+        LoginUsuario loginUsuarioT = new LoginUsuario(this);
+        LoginRestaurante loginRestauranteT = new LoginRestaurante(this);
+
         RegistrarUsuario registrarUsuario = new RegistrarUsuario(this);
         RegistrarRestaurante registrarRestaurante = new RegistrarRestaurante(this);
 
+
         cardPanel.add(telaInicial, "TelaInicial");
-        cardPanel.add(telaUsuario, "TelaUsuario");
-        cardPanel.add(telaRestaurante, "TelaRestaurante");
+        cardPanel.add(signUsuarioT, "SignUsuarioT");
+        cardPanel.add(signRestauranteT, "SignRestauranteT");
         cardPanel.add(loginUsuarioT, "LoginUsuarioT");
         cardPanel.add(loginRestauranteT, "LoginRestauranteT");
         cardPanel.add(registrarUsuario, "RegistrarUsuarioT");
         cardPanel.add(registrarRestaurante, "RegistrarRestauranteT");
+
 
         add(cardPanel);
         setLocationRelativeTo(null);
@@ -41,9 +60,52 @@ public class TelaPrincipal extends JFrame {
         cardLayout.show(cardPanel, nomeTela);
     }
 
+    public JPanel getBackButton(String nomeDaTela) {
+        JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton backButton = new JButton();
+        backButton.setBackground(Color.WHITE);
+        backButton.setForeground(Color.BLACK);
+        ImageIcon arrowIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\arrow.png");
+        backButton.setIcon(arrowIcon);
+        backButton.setPreferredSize(new Dimension(40, 40));
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarTela(nomeDaTela);
+            }
+        });
+        backButtonPanel.add(backButton);
+        return backButtonPanel;
+    }
+
+    public JPanel getLogoutButton(String nomeDaTela) {
+        JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton backButton = new JButton();
+        backButton.setBackground(Color.WHITE);
+        backButton.setForeground(Color.BLACK);
+        ImageIcon arrowIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\logout.png");
+        backButton.setIcon(arrowIcon);
+        backButton.setPreferredSize(new Dimension(40, 40));
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setRestauranteLogado(SessionService.setRestauranteTemp());
+                setUsuarioLogado(SessionService.setUsuarioTemp());
+                mostrarTela(nomeDaTela);
+            }
+        });
+        backButtonPanel.add(backButton);
+        return backButtonPanel;
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaPrincipal telaPrincipal = new TelaPrincipal();
+            TelaPrincipal telaPrincipal = null;
+            try {
+                telaPrincipal = new TelaPrincipal();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             telaPrincipal.setVisible(true);
         });
     }

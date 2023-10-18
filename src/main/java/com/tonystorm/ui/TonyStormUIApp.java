@@ -1,6 +1,8 @@
 package com.tonystorm.ui;
 
+import com.tonystorm.ui.models.Comida;
 import com.tonystorm.ui.models.Restaurante;
+import com.tonystorm.ui.services.get.APIGetComida;
 import com.tonystorm.ui.services.get.APIGetRestaurante;
 import com.tonystorm.ui.utils.APIRequestUtil;
 
@@ -18,12 +20,12 @@ public class TonyStormUIApp {
 //
 //        String postRestaurante = new APIRequestUtil("/restaurantes").sendPostRequest(restaurante1);
 //        System.out.println(postRestaurante);
-        List<Restaurante> restaurantes = new APIGetRestaurante().getAll();
-        Restaurante cgtronco = restaurantes.get(1);
+//        List<Restaurante> restaurantes = new APIGetRestaurante().getAll();
+//        Restaurante cgtronco = restaurantes.get(0);
+//
+//        System.out.println(cgtronco);
 
-        String endpoint = "/restaurantes/" + cgtronco.getId();
-        System.out.println(endpoint);
+//        List<Comida> comidas = APIGetComida();
 
-        new APIRequestUtil(endpoint).sendDeleteRequest();
     }
 }

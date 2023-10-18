@@ -14,7 +14,7 @@ public class APIGetComida {
     }
     public List<Comida> getAll() throws Exception {
         TypeReference<List<Comida>> comidaType = new TypeReference<List<Comida>>() {};
-        String endpoint = "/restaurantes" + idRestaurante + "/comidas";
+        String endpoint = "/restaurantes/" + idRestaurante + "/comidas";
         APIGetObjectsUtil<List<Comida>> comidaAPI = new APIGetObjectsUtil<>(endpoint, comidaType);
 
         return comidaAPI.getObject();

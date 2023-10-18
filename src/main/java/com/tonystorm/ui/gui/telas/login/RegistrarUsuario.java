@@ -31,7 +31,7 @@ public class RegistrarUsuario extends JPanel{
         gbc.gridwidth = 2;
         panel.add(titleLabel, gbc);
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\tonylogin.png");
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\53196583899\\Documents\\Dev\\TonyStormDeliveryUI\\src\\main\\resources\\tony2.png");
         JLabel imageLabel = new JLabel(imageIcon);
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -42,15 +42,18 @@ public class RegistrarUsuario extends JPanel{
         nomeField.setPreferredSize(new Dimension(200, 30));
         senhaField = new JPasswordField(20);
         senhaField.setPreferredSize(new Dimension(200, 30));
-        cpfField = new JPasswordField(20);
+        cpfField = new JTextField(20);
         cpfField.setPreferredSize(new Dimension(200, 30));
-        endX = new JPasswordField(20);
+        endX = new JTextField(20);
         endX.setPreferredSize(new Dimension(200, 30));
-        endY = new JPasswordField(20);
+        endY = new JTextField(20);
         endY.setPreferredSize(new Dimension(200, 30));
 
         JButton registerButton = new JButton("Registrar");
-        registerButton.setPreferredSize(new Dimension(100, 40));
+        registerButton.setFont(new Font("Arial", Font.BOLD, 16));
+        registerButton.setBackground(Color.WHITE);
+        registerButton.setForeground(Color.BLACK);
+        registerButton.setMargin(new Insets(10, 20, 10, 20));
         gbc.gridwidth = 1;
 
         gbc.gridx = 0;
@@ -94,7 +97,7 @@ public class RegistrarUsuario extends JPanel{
         panel.add(endY, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 7;
         gbc.gridwidth = 4;
         panel.add(registerButton, gbc);
 
@@ -123,5 +126,8 @@ public class RegistrarUsuario extends JPanel{
             }
         });
         add(panel, BorderLayout.CENTER);
+
+        JPanel backButtonPanel = telaPrincipal.getBackButton("SignUsuarioT");
+        add(backButtonPanel, BorderLayout.NORTH);
     }
 }

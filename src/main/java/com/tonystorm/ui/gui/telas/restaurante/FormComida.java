@@ -2,6 +2,7 @@ package com.tonystorm.ui.gui.telas.restaurante;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
 import com.tonystorm.ui.models.Comida;
+import com.tonystorm.ui.models.Restaurante;
 import com.tonystorm.ui.utils.APIRequestUtil;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class FormComida extends JPanel {
     private final JTextField nomeField;
     private final JTextField precoField;
 
-    public FormComida(TelaPrincipal telaPrincipal) {
+    public FormComida(TelaPrincipal telaRestauranteP) {
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -59,6 +60,11 @@ public class FormComida extends JPanel {
         gbc.gridy = 3;
         panel.add(precoField, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 4;
+        panel.add(registerButton, gbc);
+
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,8 +76,12 @@ public class FormComida extends JPanel {
                 comida.setPreco(preco);
 
                 try {
-                    new APIRequestUtil("/restaurantes/%s/comidas").sendPostRequest(comida);
+                    Restaurante restaurante = telaRestauranteP.getRestauranteLogado();
+                    String endpoint = "/restaurantes/" + restaurante.getId().toString() + "/comidas";
+
+                    new APIRequestUtil(endpoint).sendPostRequest(comida);
                     JOptionPane.showMessageDialog(FormComida.this, "Comida registrada com sucesso!");
+                    telaRestauranteP.mostrarTela("HomeRestauranteT");
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -79,5 +89,8 @@ public class FormComida extends JPanel {
         });
 
         add(panel, BorderLayout.CENTER);
+
+        JPanel backButtonPanel = telaRestauranteP.getBackButton("HomeRestauranteT");
+        add(backButtonPanel, BorderLayout.NORTH);
     }
 }
