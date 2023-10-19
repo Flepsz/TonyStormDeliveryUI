@@ -54,11 +54,13 @@ public class APIRequestUtil {
         ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
         String requestBodyJson = objectWriter.writeValueAsString(requestBody);
 
-
+        System.out.println(requestBodyJson);
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = requestBodyJson.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
+
+        System.out.println(requestBodyJson);
 
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_CREATED) {

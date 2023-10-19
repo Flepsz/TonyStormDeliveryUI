@@ -4,6 +4,7 @@ import com.tonystorm.ui.gui.telas.TelaPrincipal;
 import com.tonystorm.ui.gui.telas.restaurante.HomeRestaurante;
 import com.tonystorm.ui.gui.telas.restaurante.ShowUsuariosPedido;
 import com.tonystorm.ui.models.Pedido;
+import com.tonystorm.ui.models.Restaurante;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +54,19 @@ public class HomeUsuario extends JPanel {
         postPedidoBotao.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                telaPrincipal.mostrarTela("FormComidaT");
+                try {
+                    ShowRestaurantes showRestaurantes = new ShowRestaurantes(telaPrincipal);
+                    List<Restaurante> restaurantes = showRestaurantes.getRestaurantes(telaPrincipal);
+
+                    if (!restaurantes.isEmpty()) {
+                        telaPrincipal.getCardPanel().add(showRestaurantes, "ShowRestaurantesT");
+                        telaPrincipal.mostrarTela("ShowRestaurantesT");
+                    } else {
+                        JOptionPane.showMessageDialog(HomeUsuario.this, "Não há restaurantes disponíveis!");
+                    }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
