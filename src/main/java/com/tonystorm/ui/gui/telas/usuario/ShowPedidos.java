@@ -1,4 +1,4 @@
-package com.tonystorm.ui.gui.telas.restaurante;
+package com.tonystorm.ui.gui.telas.usuario;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
 import com.tonystorm.ui.models.Pedido;
@@ -9,15 +9,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-
-public class ShowUsuariosPedido extends JPanel {
-    public ShowUsuariosPedido(TelaPrincipal telaPrincipal) throws Exception {
+public class ShowPedidos extends JPanel {
+    public ShowPedidos(TelaPrincipal telaPrincipal) throws Exception {
         setLayout(new BorderLayout());
 
-        JPanel backButtonPanel = telaPrincipal.getBackButton("HomeRestauranteT");
+        JPanel backButtonPanel = telaPrincipal.getBackButton("HomeUsuarioT");
         add(backButtonPanel, BorderLayout.NORTH);
 
-        List<Pedido> pedidos = getPedido(telaPrincipal);
+        java.util.List<Pedido> pedidos = getPedido(telaPrincipal);
 
         JPanel usuariosPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -27,19 +26,19 @@ public class ShowUsuariosPedido extends JPanel {
 
         for (Pedido pedido : pedidos) {
             Usuario usuarioDoPedido = pedido.getUsuario();
-            JButton usuarioButton = new JButton(usuarioDoPedido.getNome());
+            JButton usuarioButton = new JButton(pedido.getStatus());
             usuarioButton.setPreferredSize(new Dimension(200, 50));
 
             usuarioButton.addActionListener(e -> {
                 telaPrincipal.setUsuarioLogado(usuarioDoPedido);
                 try {
-                    ShowPedido showPedido = new ShowPedido(telaPrincipal, pedido);
-                    telaPrincipal.getCardPanel().add(showPedido, "ShowPedidoT");
+                    ShowPedidoU showPedido = new ShowPedidoU(telaPrincipal, pedido);
+                    telaPrincipal.getCardPanel().add(showPedido, "ShowPedidoUT");
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
 
-                telaPrincipal.mostrarTela("ShowPedidoT");
+                telaPrincipal.mostrarTela("ShowPedidoUT");
             });
 
             usuariosPanel.add(usuarioButton, gbc);
@@ -49,6 +48,6 @@ public class ShowUsuariosPedido extends JPanel {
     }
 
     public List<Pedido> getPedido(TelaPrincipal telaPrincipal) throws Exception {
-        return new APIGetPedido(telaPrincipal.getRestauranteLogado().getId().toString()).getAllFromRestaurante();
+        return new APIGetPedido(telaPrincipal.getUsuarioLogado().getId().toString()).getAll();
     }
 }

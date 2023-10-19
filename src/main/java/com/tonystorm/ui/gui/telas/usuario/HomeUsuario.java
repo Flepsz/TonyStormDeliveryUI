@@ -1,11 +1,15 @@
 package com.tonystorm.ui.gui.telas.usuario;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
+import com.tonystorm.ui.gui.telas.restaurante.HomeRestaurante;
+import com.tonystorm.ui.gui.telas.restaurante.ShowUsuariosPedido;
+import com.tonystorm.ui.models.Pedido;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class HomeUsuario extends JPanel {
     public HomeUsuario(TelaPrincipal telaPrincipal) {
@@ -15,7 +19,7 @@ public class HomeUsuario extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 40, 10);
 
-        JLabel titleLabel = new JLabel("Restaurante Admin");
+        JLabel titleLabel = new JLabel("Bem vindo, " + telaPrincipal.getUsuarioLogado().getNome());
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -26,13 +30,13 @@ public class HomeUsuario extends JPanel {
         GridBagConstraints gbcBtn = new GridBagConstraints();
         gbcBtn.insets = new Insets(10, 10, 10, 10);
 
-        JButton postPedidoBotao = new JButton("Restaurantes");
+        JButton postPedidoBotao = new JButton("Fazer Pedido");
         postPedidoBotao.setFont(new Font("Arial", Font.BOLD, 16));
         postPedidoBotao.setBackground(Color.WHITE);
         postPedidoBotao.setForeground(Color.BLACK);
         postPedidoBotao.setMargin(new Insets(10, 20, 10, 20));
 
-        JButton pedidoButton = new JButton("Ver Pedidos");
+        JButton pedidoButton = new JButton("Ver Meus Pedidos");
         pedidoButton.setFont(new Font("Arial", Font.BOLD, 16));
         pedidoButton.setBackground(Color.WHITE);
         pedidoButton.setForeground(Color.BLACK);
@@ -56,7 +60,19 @@ public class HomeUsuario extends JPanel {
         pedidoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                telaPrincipal.mostrarTela("");
+                try {
+                    ShowPedidos showPedidos = new ShowPedidos(telaPrincipal);
+                    List<Pedido> pedidos = showPedidos.getPedido(telaPrincipal);
+
+                    if (!pedidos.isEmpty()) {
+                        telaPrincipal.getCardPanel().add(showPedidos, "ShowPedidosT");
+                        telaPrincipal.mostrarTela("ShowPedidosT");
+                    } else {
+                        JOptionPane.showMessageDialog(HomeUsuario.this, "Não há pedidos seus!");
+                    }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -67,7 +83,7 @@ public class HomeUsuario extends JPanel {
 
         add(panel, BorderLayout.CENTER);
 
-        JPanel backButtonPanel = telaPrincipal.getLogoutButton("TelaInicial");
+        JPanel backButtonPanel = telaPrincipal.getLogoutButton("TelaInicial", () -> telaPrincipal.setUsuarioLogado(null));
         add(backButtonPanel, BorderLayout.NORTH);
     }
 }

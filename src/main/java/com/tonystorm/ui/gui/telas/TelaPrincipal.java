@@ -28,6 +28,7 @@ public class TelaPrincipal extends JFrame {
         setTitle("TonyStormDelivery");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(430, 932);
+        setResizable(false);
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
@@ -78,7 +79,7 @@ public class TelaPrincipal extends JFrame {
         return backButtonPanel;
     }
 
-    public JPanel getLogoutButton(String nomeDaTela) {
+    public JPanel getLogoutButton(String nomeDaTela, Runnable action) {
         JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton();
         backButton.setBackground(Color.WHITE);
@@ -89,14 +90,14 @@ public class TelaPrincipal extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setRestauranteLogado(SessionService.setRestauranteTemp());
-                setUsuarioLogado(SessionService.setUsuarioTemp());
+                action.run();
                 mostrarTela(nomeDaTela);
             }
         });
         backButtonPanel.add(backButton);
         return backButtonPanel;
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

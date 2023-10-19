@@ -18,5 +18,5 @@ public class Pedido {
     private List<Comida> comidas;
     private Double precoTotal;
     private Double distancia;
-    private Status status;
+    private String status;
 }

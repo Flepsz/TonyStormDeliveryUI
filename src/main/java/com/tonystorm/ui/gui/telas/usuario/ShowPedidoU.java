@@ -1,4 +1,4 @@
-package com.tonystorm.ui.gui.telas.restaurante;
+package com.tonystorm.ui.gui.telas.usuario;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
 import com.tonystorm.ui.models.Comida;
@@ -9,9 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class ShowPedido extends JPanel {
-
-    public ShowPedido(TelaPrincipal telaRestauranteP, Pedido pedido) throws Exception {
+public class ShowPedidoU extends JPanel {
+    public ShowPedidoU(TelaPrincipal telaRestauranteP, Pedido pedido) throws Exception {
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridLayout(2, 1));
@@ -93,7 +92,7 @@ public class ShowPedido extends JPanel {
         add(fieldsPanel, BorderLayout.CENTER);
         add(scrollPane, BorderLayout.SOUTH);
 
-        JPanel backButtonPanel = telaRestauranteP.getLogoutButton("ShowUsuariosPedidoT", () -> telaRestauranteP.setUsuarioLogado(null));
+        JPanel backButtonPanel = telaRestauranteP.getBackButton("ShowPedidosT");
         add(backButtonPanel, BorderLayout.NORTH);
     }
 }

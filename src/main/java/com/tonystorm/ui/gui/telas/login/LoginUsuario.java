@@ -1,6 +1,7 @@
 package com.tonystorm.ui.gui.telas.login;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
+import com.tonystorm.ui.gui.telas.usuario.HomeUsuario;
 import com.tonystorm.ui.models.Usuario;
 import com.tonystorm.ui.services.auth.AuthServiceUsuario;
 import com.tonystorm.ui.services.get.APIGetUsuario;
@@ -83,7 +84,12 @@ public class LoginUsuario extends JPanel {
                     Usuario authenticatedUsuario = authService.authenticate(nome, senha);
 
                     if (authenticatedUsuario != null) {
+                        telaPrincipal.setUsuarioLogado(authenticatedUsuario);
+
+                        HomeUsuario homeUsuario = new HomeUsuario(telaPrincipal);
+                        telaPrincipal.cardPanel.add(homeUsuario, "HomeUsuarioT");
                         JOptionPane.showMessageDialog(LoginUsuario.this, "Logado com sucesso!");
+                        telaPrincipal.mostrarTela("HomeUsuarioT");
                     } else {
                         JOptionPane.showMessageDialog(LoginUsuario.this, "Login falhou. Por favor revise suas credenciais.");
                     }
