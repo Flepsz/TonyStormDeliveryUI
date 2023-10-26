@@ -1,10 +1,8 @@
 package com.tonystorm.ui.gui.telas;
 
 import com.tonystorm.ui.gui.telas.login.*;
-import com.tonystorm.ui.gui.telas.restaurante.HomeRestaurante;
 import com.tonystorm.ui.models.Restaurante;
 import com.tonystorm.ui.models.Usuario;
-import com.tonystorm.ui.services.session.SessionService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

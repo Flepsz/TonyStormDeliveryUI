@@ -2,6 +2,7 @@ package com.tonystorm.ui.gui.telas.usuario;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
 import com.tonystorm.ui.models.Comida;
+import com.tonystorm.ui.models.ItemPedido;
 import com.tonystorm.ui.models.Pedido;
 
 import javax.swing.*;
@@ -75,16 +76,17 @@ public class ShowPedidoU extends JPanel {
         gbc.gridy = 7;
         fieldsPanel.add(new JLabel(status), gbc);
 
-        List<Comida> comidas = pedido.getComidas();
+        List<ItemPedido> itensPedido = pedido.getItensPedido();
 
         DefaultTableModel tableModel = new DefaultTableModel();
         JTable table = new JTable(tableModel);
 
         tableModel.addColumn("Nome");
+        tableModel.addColumn("Qtd");
         tableModel.addColumn("Preço");
 
-        for (Comida comida : comidas) {
-            tableModel.addRow(new Object[]{comida.getNome(), comida.getPreco()});
+        for (ItemPedido itemPedido : itensPedido) {
+            tableModel.addRow(new Object[]{itemPedido.getComida().getNome(), itemPedido.getQuantidade(), itemPedido.getSubTotal()});
         }
 
         JScrollPane scrollPane = new JScrollPane(table);

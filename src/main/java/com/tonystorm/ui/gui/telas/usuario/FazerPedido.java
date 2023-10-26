@@ -2,25 +2,23 @@ package com.tonystorm.ui.gui.telas.usuario;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
 import com.tonystorm.ui.models.Comida;
-import com.tonystorm.ui.models.Pedido;
+import com.tonystorm.ui.models.ItemPedido;
 import com.tonystorm.ui.models.PedidoToSend;
 import com.tonystorm.ui.models.Restaurante;
 import com.tonystorm.ui.utils.APIRequestUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ShowComidas extends JPanel {
-    public ShowComidas(TelaPrincipal telaPrincipal, Restaurante restaurante) {
+public class FazerPedido extends JPanel {
+    public FazerPedido(TelaPrincipal telaPrincipal, Restaurante restaurante) {
         setLayout(new BorderLayout());
 
         List<Comida> comidasDisponiveis = restaurante.getComidas();
-        List<UUID> carrinhoComidas = new ArrayList<>();
+        List<ItemPedido> carrinhoComidas = new ArrayList<>();
 
         PedidoToSend pedidoAtual = new PedidoToSend();
 
@@ -31,9 +29,29 @@ public class ShowComidas extends JPanel {
 
             setLayout(new GridLayout(0, 3, 10, 10));
 
-            botaoAdicionar.addActionListener(e -> carrinhoComidas.add(comida.getId()));
+            ItemPedido itemPedido = new ItemPedido();
 
-            botaoRemover.addActionListener(e -> carrinhoComidas.remove(comida.getId()));
+            botaoAdicionar.addActionListener(e -> {
+                itemPedido.setComida(comida);
+                itemPedido.setQuantidade(itemPedido.getQuantidade() + 1);
+
+                carrinhoComidas.add(itemPedido);
+            });
+
+            botaoRemover.addActionListener(e -> {
+                if (itemPedido.getComida() == null) {
+                    JOptionPane.showMessageDialog(telaPrincipal, "Comida não existente no carrinho!");
+                    return;
+                }
+
+                if (itemPedido.getQuantidade() > 1) {
+                    itemPedido.setQuantidade(itemPedido.getQuantidade() - 1);
+                } else {
+                    itemPedido.setComida(null);
+                    itemPedido.setQuantidade(0);
+                    carrinhoComidas.remove(itemPedido);
+                }
+            });
 
             add(labelComida);
             add(botaoAdicionar);
@@ -43,7 +61,7 @@ public class ShowComidas extends JPanel {
         JButton botaoRealizarPedido = new JButton("Realizar Pedido");
         botaoRealizarPedido.addActionListener(e -> {
             System.out.println(carrinhoComidas);
-            pedidoAtual.setComidas(carrinhoComidas);
+            pedidoAtual.setItensPedido(carrinhoComidas);
             realizarPedido(pedidoAtual, telaPrincipal);
         });
         add(botaoRealizarPedido);

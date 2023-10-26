@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PedidoToSend {
-    private List<ItemPedido> itensPedido;
+public class ItemPedido {
+    private Long id;
+    private Comida comida;
+    private int quantidade;
+    private Double subTotal;
 }

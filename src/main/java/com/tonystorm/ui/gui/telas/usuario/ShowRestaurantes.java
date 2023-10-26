@@ -1,11 +1,7 @@
 package com.tonystorm.ui.gui.telas.usuario;
 
 import com.tonystorm.ui.gui.telas.TelaPrincipal;
-import com.tonystorm.ui.gui.telas.restaurante.ShowPedido;
-import com.tonystorm.ui.models.Pedido;
 import com.tonystorm.ui.models.Restaurante;
-import com.tonystorm.ui.models.Usuario;
-import com.tonystorm.ui.services.get.APIGetPedido;
 import com.tonystorm.ui.services.get.APIGetRestaurante;
 
 import javax.swing.*;
@@ -37,8 +33,8 @@ public class ShowRestaurantes extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        ShowComidas showComidas = new ShowComidas(telaPrincipal, restaurante);
-                        telaPrincipal.getCardPanel().add(showComidas, "ShowComidasT");
+                        FazerPedido fazerPedido = new FazerPedido(telaPrincipal, restaurante);
+                        telaPrincipal.getCardPanel().add(fazerPedido, "ShowComidasT");
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }

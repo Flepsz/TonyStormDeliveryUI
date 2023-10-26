@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Pedido {
     private UUID id;
     private Usuario usuario;
-    private List<Comida> comidas;
+    private List<ItemPedido> itensPedido;
     private Double precoTotal;
     private Double distancia;
     private String status;
