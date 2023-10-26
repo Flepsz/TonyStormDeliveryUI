@@ -29,27 +29,37 @@ public class FazerPedido extends JPanel {
 
             setLayout(new GridLayout(0, 3, 10, 10));
 
-            ItemPedido itemPedido = new ItemPedido();
 
             botaoAdicionar.addActionListener(e -> {
-                itemPedido.setComida(comida);
-                itemPedido.setQuantidade(itemPedido.getQuantidade() + 1);
+                ItemPedido itemPedido = carrinhoComidas.stream()
+                        .filter(item -> item.getComida() == comida)
+                        .findFirst()
+                        .orElse(null);
 
-                carrinhoComidas.add(itemPedido);
+                if (itemPedido == null) {
+                    itemPedido = new ItemPedido();
+                    itemPedido.setComida(comida);
+                    itemPedido.setQuantidade(1);
+                    carrinhoComidas.add(itemPedido);
+                } else {
+                    itemPedido.setQuantidade(itemPedido.getQuantidade() + 1);
+                }
             });
 
             botaoRemover.addActionListener(e -> {
-                if (itemPedido.getComida() == null) {
-                    JOptionPane.showMessageDialog(telaPrincipal, "Comida não existente no carrinho!");
-                    return;
-                }
+                ItemPedido itemPedido = carrinhoComidas.stream()
+                        .filter(item -> item.getComida() == comida)
+                        .findFirst()
+                        .orElse(null);
 
-                if (itemPedido.getQuantidade() > 1) {
-                    itemPedido.setQuantidade(itemPedido.getQuantidade() - 1);
+                if (itemPedido != null) {
+                    if (itemPedido.getQuantidade() > 1) {
+                        itemPedido.setQuantidade(itemPedido.getQuantidade() - 1);
+                    } else {
+                        carrinhoComidas.remove(itemPedido);
+                    }
                 } else {
-                    itemPedido.setComida(null);
-                    itemPedido.setQuantidade(0);
-                    carrinhoComidas.remove(itemPedido);
+                    JOptionPane.showMessageDialog(telaPrincipal, "Comida não existente no carrinho!");
                 }
             });
 
